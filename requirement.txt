@@ -1,0 +1,5 @@
+requests
+flask
+playwright
+websockets
+python-dotenv

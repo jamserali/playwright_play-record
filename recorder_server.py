@@ -4,30 +4,50 @@ import requests
 app = Flask(__name__)
 
 @app.route("/start-recording", methods=["POST"])
-def start_recording():
-    data = request.get_json()
-
-    url = data["url"]
-    client_ip = data["client_ip"]
-
-    try:
-        r = requests.post(
-            f"http://{client_ip}:7777/start",
-            json={"url": url},
-            timeout=5
-        )
-        return jsonify({"status": "Forwarded", "target": client_ip}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
+def start():
+    data = request.json
+    return requests.post(
+        f"http://{data['client_ip']}:7777/start",
+        json={"url": data["url"]}
+    ).json()
 
 @app.route("/health")
 def health():
     return "OK", 200
 
+app.run(host="0.0.0.0", port=8888)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8888)
+
+# from flask import Flask, request, jsonify
+# import requests
+#
+# app = Flask(__name__)
+#
+# @app.route("/start-recording", methods=["POST"])
+# def start_recording():
+#     data = request.get_json()
+#
+#     url = data["url"]
+#     client_ip = data["client_ip"]
+#
+#     try:
+#         r = requests.post(
+#             f"http://{client_ip}:7777/start",
+#             json={"url": url},
+#             timeout=5
+#         )
+#         return jsonify({"status": "Forwarded", "target": client_ip}), 200
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+#
+#
+# @app.route("/health")
+# def health():
+#     return "OK", 200
+#
+#
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=8888)
 
 
 # from flask import Flask, request, jsonify

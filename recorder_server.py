@@ -17,11 +17,11 @@ def start_recording():
 
     return jsonify({"status": "Recording started"}), 200
 
-# if __name__ == "__main__":
-#     app.run(port=7777)
+if __name__ == "__main__":
+    app.run(port=7777)
 
 # app.run(port=7777)
-app.run(host="0.0.0.0", port=7777)
+# app.run(host="0.0.0.0", port=7777)
 
 
 
